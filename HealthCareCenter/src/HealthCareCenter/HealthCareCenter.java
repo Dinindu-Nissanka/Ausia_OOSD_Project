@@ -16,15 +16,13 @@ public class HealthCareCenter {
      * @param args the command line arguments
      */
     
-    //kodda mekatath pukadeida ?
+    
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello");
         System.out.println("GIT Sucks time");
-        System.err.println("PUSH");
-        System.out.println("kolaya nisaa kela una");
-        System.out.println("Paniiya");
-        System.out.println("Sachithra galm gal ponnayek");
+        System.out.println("PUSH");
+    
     }
     
 }
