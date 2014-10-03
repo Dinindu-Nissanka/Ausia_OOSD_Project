@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package javaapplication3;
+package HealthCareCenter;
 
 /**
  *
  * @author Pathum
  */
-public class JavaApplication3 {
+public class HealthCareCenter {
 
     /**
      * @param args the command line arguments
