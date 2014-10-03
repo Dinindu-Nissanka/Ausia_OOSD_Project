@@ -10,5 +10,6 @@ package HealthCareCenter;
  * @author User
  */
 public class Patient {
-    
+    public Patient(String name,int age,String NIC,String familyName,String gender,String contactNo,String specialRemarks){
+    }
 }
