@@ -24,6 +24,7 @@ public class HealthCareCenter {
         System.err.println("PUSH");
         System.out.println("kolaya nisaa kela una");
         System.out.println("Paniiya");
+        System.out.println("Sachithra galm gal ponnayek");
     }
     
 }
