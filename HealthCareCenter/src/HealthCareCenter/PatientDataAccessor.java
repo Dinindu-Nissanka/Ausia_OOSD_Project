@@ -53,7 +53,7 @@ public class PatientDataAccessor {
                 contactNo=dataSet.getString("Contact No.");
                 specialRemarks=dataSet.getString("Special Remarks");
                 
-                myPatient=new Patient(name,age,NIC,familyName,gender,contactNo,specialRemarks);
+                //myPatient=new Patient(name,age,NIC,familyName,gender,contactNo,specialRemarks);
                 patientList.add(myPatient);
             }
         }
