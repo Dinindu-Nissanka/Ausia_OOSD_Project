@@ -1,5 +1,10 @@
 /*
+<<<<<<< HEAD
  * To change this template, choose Tools | Templates
+=======
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+>>>>>>> 0f19f80c9e103a77305a1c312d981868868538b6
  * and open the template in the editor.
  */
 package HealthCareCenter;
@@ -86,5 +91,10 @@ public class Patient {
     public void setSpecialRemarks(String specialRemarks) {
         this.specialRemarks = specialRemarks;
     }
+=======
+    /*public Patient(String name,int age,String NIC,String familyName,String gender,String contactNo,String specialRemarks){
+    }*/
+    
+>>>>>>> 0f19f80c9e103a77305a1c312d981868868538b6
     
 }

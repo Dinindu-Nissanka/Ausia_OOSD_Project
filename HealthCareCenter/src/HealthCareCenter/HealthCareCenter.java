@@ -23,6 +23,9 @@ public class HealthCareCenter {
         sForm.setVisible(true);
         sForm.setSize(400, 300);   
         
+        //huththak
+        //gefidhiedhidhihdi4hdi4dhirdhirdhidhidhihdih
+        
     }
     
 }
