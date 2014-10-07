@@ -1,10 +1,11 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package HealthCareCenter;
 
 //import com.mysql.jdbc.Connection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,12 +33,12 @@ public class DatabaseConnector {
         
         System.out.println("MySql Driver Registered");
         
-        try{          //making the connection
-            connector=(Connection) DriverManager.getConnection("jdbc:mysql://localhost/familydoctor","root","");
+        try{          //making the connection 
+            connector=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:/FamilyDoctor?zeroDateTimeBehavior=convertToNull","root"," ");
             System.out.println("Connection Succeded!!!");
         }
         catch(SQLException e){
-             System.out.println("Connection Failed !!!");
+             System.out.println(e);
         }
         
    return connector;  //returning the connection

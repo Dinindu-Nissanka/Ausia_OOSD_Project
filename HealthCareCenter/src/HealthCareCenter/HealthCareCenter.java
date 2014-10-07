@@ -19,6 +19,9 @@ public class HealthCareCenter {
     
     public static void main(String[] args) {
         // TODO code application logic here
+        StartForm sForm=new StartForm();
+        sForm.setVisible(true);
+        sForm.setSize(400, 300);   
         
     }
     
