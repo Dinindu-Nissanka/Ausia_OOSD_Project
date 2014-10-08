@@ -1,14 +1,10 @@
 /*
-<<<<<<< HEAD
- * To change this template, choose Tools | Templates
-=======
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
->>>>>>> 0f19f80c9e103a77305a1c312d981868868538b6
  * and open the template in the editor.
  */
-package HealthCareCenter;
 
+package HealthCareCenter;
 
 /**
  *
@@ -17,7 +13,7 @@ package HealthCareCenter;
 public class Patient {
     
     private String name;
-    private int age;
+    private String age;
     private String NIC;
     private String gender;
     private String familyName;
@@ -26,7 +22,7 @@ public class Patient {
     
     
 
-    public Patient(String name, int age, String NIC, String familyName,String gender, String contactNo, String specialRemarks) {
+    public Patient(String name, String age, String NIC, String familyName,String gender, String contactNo, String specialRemarks) {
         this.name = name;
         this.age = age;
         this.NIC = NIC;
@@ -36,7 +32,7 @@ public class Patient {
         this.specialRemarks = specialRemarks;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
@@ -64,7 +60,7 @@ public class Patient {
         return specialRemarks;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -91,10 +87,6 @@ public class Patient {
     public void setSpecialRemarks(String specialRemarks) {
         this.specialRemarks = specialRemarks;
     }
-=======
-    /*public Patient(String name,int age,String NIC,String familyName,String gender,String contactNo,String specialRemarks){
-    }*/
-    
->>>>>>> 0f19f80c9e103a77305a1c312d981868868538b6
+
     
 }

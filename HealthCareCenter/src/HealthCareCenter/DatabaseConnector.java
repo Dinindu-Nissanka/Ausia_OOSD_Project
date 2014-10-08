@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DatabaseConnector {
     
     
-    private Connection connector=null;
+   private Connection connector=null;
     
     public Connection getConnection(){
         
@@ -34,7 +34,7 @@ public class DatabaseConnector {
         System.out.println("MySql Driver Registered");
         
         try{          //making the connection 
-            connector=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:/FamilyDoctor?zeroDateTimeBehavior=convertToNull","root"," ");
+            connector=(Connection) DriverManager.getConnection("jdbc:mysql://localhost/familydoctor","root","");
             System.out.println("Connection Succeded!!!");
         }
         catch(SQLException e){
@@ -44,6 +44,6 @@ public class DatabaseConnector {
    return connector;  //returning the connection
             
         
-    }
+    } 
     
 }

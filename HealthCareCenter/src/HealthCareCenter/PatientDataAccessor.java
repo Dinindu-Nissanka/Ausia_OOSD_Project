@@ -30,7 +30,7 @@ public class PatientDataAccessor {
     String SQLQuery=null;
     
     String name;
-    int age;
+    String age;
     String NIC;
     String gender;
     String familyName;
@@ -48,7 +48,7 @@ public class PatientDataAccessor {
           
             while(dataSet.next()){
                 name=dataSet.getString("Name");
-                age=dataSet.getInt("Age");
+                age=dataSet.getString("Age");
                 NIC=dataSet.getString("NIC");
                 gender=dataSet.getString("Gender");
                 familyName=dataSet.getString("Family Name");
@@ -78,22 +78,21 @@ public class PatientDataAccessor {
         
                 try {
             databaseConnector = myConnector.getConnection();
-            //stmnt = (Statement) databaseConnector.createStatement();
-
-            SQLQuery = "INSERT INTO patientdetails (PatientID,Name,Address,telephone)"  + "VALUES(?,?,?,?,?,?,?)";
+                 
+            SQLQuery = "INSERT INTO familydoctor.patient "+"VALUES(?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = databaseConnector.prepareStatement(SQLQuery);
+            
             preparedStatement.setString(1, myPatient.getName());
-            preparedStatement.setInt(2, myPatient.getAge());
+            preparedStatement.setString(2, myPatient.getAge());
             preparedStatement.setString(3, myPatient.getNIC());
             preparedStatement.setString(4, myPatient.getGender());
             preparedStatement.setString(5,myPatient.getFamilyName());
             preparedStatement.setString(6, myPatient.getContactNo());
             preparedStatement.setString(7, myPatient.getSpecialRemarks());
-            preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate(); 
             
-            //stmnt.executeUpdate(SQLQuery);
         } catch (SQLException e) {
-            System.out.println(e.getMessage()+"erroor");
+            System.out.println(e.getMessage()+" error");
         } finally {
             if (stmnt != null) {
                 stmnt.close();
