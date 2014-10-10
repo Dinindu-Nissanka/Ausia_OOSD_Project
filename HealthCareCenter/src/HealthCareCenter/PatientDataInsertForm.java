@@ -255,7 +255,7 @@ public class PatientDataInsertForm extends javax.swing.JFrame {
         contactNo=evt.getActionCommand();
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    //familu name field
+    //family name field
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
         familyName=evt.getActionCommand();

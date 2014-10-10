@@ -102,4 +102,15 @@ public class PatientDataAccessor {
             }
         }
     }
+    
+    public ResultSet browsePatientHistory(String NIC) throws SQLException{
+        
+        databaseConnector=myConnector.getConnection();
+        stmnt=(Statement) databaseConnector.createStatement();
+        
+        SQLQuery="SELECT * FROM familydoctor.patienthistory WHERE NIC="+NIC;
+        dataSet=stmnt.executeQuery(SQLQuery);
+         
+        return dataSet; //return the raws as a resultSet
+    }
 }
