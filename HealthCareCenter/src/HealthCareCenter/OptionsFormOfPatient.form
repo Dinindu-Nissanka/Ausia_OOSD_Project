@@ -27,12 +27,10 @@
               <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButton5" pref="146" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton1" max="32767" attributes="0"/>
-                      <Component id="jButton2" max="32767" attributes="0"/>
-                      <Component id="jButton3" pref="146" max="32767" attributes="0"/>
-                      <Component id="jButton4" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jButton1" max="32767" attributes="0"/>
+                  <Component id="jButton2" max="32767" attributes="0"/>
+                  <Component id="jButton3" pref="146" max="32767" attributes="0"/>
+                  <Component id="jButton4" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="135" max="32767" attributes="0"/>
           </Group>
