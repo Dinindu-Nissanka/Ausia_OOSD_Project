@@ -91,9 +91,12 @@ public class PatientDataAccessor {
             preparedStatement.setString(7, myPatient.getSpecialRemarks());
             preparedStatement.executeUpdate(); 
             
-        } catch (SQLException e) {
-            System.out.println(e.getMessage()+" error");
-        } finally {
+        } 
+         catch (SQLException e) {
+            System.out.println(e.getMessage());
+          } 
+          
+         finally {
             if (stmnt != null) {
                 stmnt.close();
             }
@@ -103,14 +106,52 @@ public class PatientDataAccessor {
         }
     }
     
-    public ResultSet browsePatientHistory(String NIC) throws SQLException{
+    public ResultSet browsePatientHistory(String nic) throws SQLException{
         
+        try{
         databaseConnector=myConnector.getConnection();
         stmnt=(Statement) databaseConnector.createStatement();
         
-        SQLQuery="SELECT * FROM familydoctor.patienthistory WHERE NIC="+NIC;
+        SQLQuery="SELECT * FROM familydoctor.patienthistory WHERE NIC="+nic;
         dataSet=stmnt.executeQuery(SQLQuery);
-         
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            if (stmnt != null) {
+                stmnt.close();
+            }
+            if (databaseConnector != null) {
+                databaseConnector.close();
+            }
+        }
+        
         return dataSet; //return the raws as a resultSet
     }
+    
+    public ResultSet browseFamilyHistory(String familyname) throws SQLException{
+        
+        try{
+        databaseConnector=myConnector.getConnection();
+        stmnt=(Statement) databaseConnector.createStatement();
+        
+        SQLQuery="SELECT * FROM familydoctor.patienthistory WHERE Family Name="+familyname;
+        dataSet=stmnt.executeQuery(SQLQuery);
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            if (stmnt != null) {
+                stmnt.close();
+            }
+            if (databaseConnector != null) {
+                databaseConnector.close();
+            }
+        }
+        
+        return dataSet; //return the raws as a resultSet
+    }
+    
 }

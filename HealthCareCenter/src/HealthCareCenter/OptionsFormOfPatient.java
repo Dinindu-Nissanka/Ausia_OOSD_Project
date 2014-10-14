@@ -107,6 +107,9 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
     //family history
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        FamilyHistoryForm historyForm=new FamilyHistoryForm();
+        historyForm.setVisible(true);
+        historyForm.setSize(850, 500);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     //data view button
@@ -128,6 +131,9 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
     //diagnose button
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        PrescriptionForm prescriptionForm=new PrescriptionForm();
+        prescriptionForm.setVisible(true);
+        prescriptionForm.setSize(800, 570);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //patients history
