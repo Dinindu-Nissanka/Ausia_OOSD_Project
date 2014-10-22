@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HealthCareCenter;
+package Forms;
+
+import Forms.OptionsFormOfPatient;
 
 /**
  *
@@ -41,6 +43,11 @@ public class StartForm extends javax.swing.JFrame {
         });
 
         jButton2.setText("Stock");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Supplier");
 
@@ -78,6 +85,11 @@ public class StartForm extends javax.swing.JFrame {
        patientOptions.setVisible(true);
        patientOptions.setSize(450, 360);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        OptionsInMedicine n = new OptionsInMedicine(this, true);
+        n.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
