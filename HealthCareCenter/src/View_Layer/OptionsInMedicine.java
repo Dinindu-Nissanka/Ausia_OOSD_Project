@@ -4,16 +4,18 @@
  * and open the template in the editor.
  */
 
-package Forms;
+package View_Layer;
 
-import Forms.MedicineUpdate;
+import View_Layer.MedicineUpdate;
+import Data_Access_Layer.MedicineDataAccessor;
 
 /**
  *
  * @author Dinindu
  */
 public class OptionsInMedicine extends javax.swing.JDialog {
-
+    
+    private MedicineDataAccessor medicineAccessor;
     /**
      * Creates new form NewJDialog
      */
@@ -115,11 +117,13 @@ public class OptionsInMedicine extends javax.swing.JDialog {
 
     private void btn_insert4btn_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insert4btn_insertActionPerformed
         MedicineInsert insertForm = new MedicineInsert(null, true);
+        insertForm.getMedicineAccessor(medicineAccessor);
         insertForm.setVisible(true);
     }//GEN-LAST:event_btn_insert4btn_insertActionPerformed
 
     private void btn_update4btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update4btn_updateActionPerformed
         MedicineUpdate updateForm = new MedicineUpdate(null, true);
+        updateForm.getMedicineAccessor(medicineAccessor);
         updateForm.setVisible(true);
     }//GEN-LAST:event_btn_update4btn_updateActionPerformed
 
@@ -178,4 +182,8 @@ public class OptionsInMedicine extends javax.swing.JDialog {
     private javax.swing.JButton btn_update4;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    void getMedicineAccessor(MedicineDataAccessor medicineAccessor) {
+        this.medicineAccessor = medicineAccessor;
+    }
 }

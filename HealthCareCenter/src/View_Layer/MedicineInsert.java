@@ -4,22 +4,24 @@
  * and open the template in the editor.
  */
 
-package Forms;
+package View_Layer;
 
-import HealthCareCenter.Medicine;
-import HealthCareCenter.MedicineDataAccessor;
+import Business_Logic_Layer.Medicine;
+import Business_Logic_Layer.MedicineBusinessLogic;
+import Data_Access_Layer.MedicineDataAccessor;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class MedicineInsert extends javax.swing.JDialog {
-
+    private MedicineDataAccessor medicineAccessor;
     private String medicineName;
     private String medicineBrand;
     private long barcodeNumber;
     private double price;
     private int quantity;
+    private String supplier;
     
     public MedicineInsert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -44,6 +46,8 @@ public class MedicineInsert extends javax.swing.JDialog {
         txt_price = new javax.swing.JTextField();
         btn_ok = new javax.swing.JButton();
         btn_cancel = new javax.swing.JButton();
+        lbl_supplier = new javax.swing.JLabel();
+        txt_supplier = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -56,6 +60,7 @@ public class MedicineInsert extends javax.swing.JDialog {
         lbl_quantity.setText("Quantity");
 
         lbl_price.setText("Price");
+        lbl_price.setVerifyInputWhenFocusTarget(false);
 
         txt_medicineName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,13 +106,28 @@ public class MedicineInsert extends javax.swing.JDialog {
             }
         });
 
+        lbl_supplier.setText("Supplier");
+
+        txt_supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_supplierActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(320, Short.MAX_VALUE)
+                .addComponent(btn_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(btn_cancel)
+                .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_supplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_quantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_barcodeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -118,16 +138,10 @@ public class MedicineInsert extends javax.swing.JDialog {
                     .addComponent(txt_medicineName, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                     .addComponent(txt_brandName)
                     .addComponent(txt_barcodeNumber)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txt_price, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txt_quantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                    .addComponent(txt_price)
+                    .addComponent(txt_quantity, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(txt_supplier))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(320, Short.MAX_VALUE)
-                .addComponent(btn_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(btn_cancel)
-                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +166,11 @@ public class MedicineInsert extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_price)
                     .addComponent(txt_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_supplier)
+                    .addComponent(txt_supplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ok)
                     .addComponent(btn_cancel))
@@ -209,10 +227,15 @@ public class MedicineInsert extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btn_cancelActionPerformed
 
+    private void txt_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_supplierActionPerformed
+        supplier = evt.getActionCommand();
+    }//GEN-LAST:event_txt_supplierActionPerformed
+
     private void addMedicine() throws SQLException{
-        MedicineDataAccessor accessor = new MedicineDataAccessor();
-        Medicine medicine = new Medicine(medicineName,medicineBrand,barcodeNumber,price,quantity);
-        accessor.insertMedicineData(medicine);
+        //Medicine medicine = new Medicine(medicineName,medicineBrand,barcodeNumber,price,quantity,supplier);
+        //medicineAccessor.insertMedicineData(medicine);
+        MedicineBusinessLogic medicineLogic = new MedicineBusinessLogic();
+        medicineLogic.insertMedicine(medicineName,medicineBrand,barcodeNumber,price,quantity,supplier);
     }
     /**
      * @param args the command line arguments
@@ -265,10 +288,16 @@ public class MedicineInsert extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_medicineName;
     private javax.swing.JLabel lbl_price;
     private javax.swing.JLabel lbl_quantity;
+    private javax.swing.JLabel lbl_supplier;
     private javax.swing.JTextField txt_barcodeNumber;
     private javax.swing.JTextField txt_brandName;
     private javax.swing.JTextField txt_medicineName;
     private javax.swing.JTextField txt_price;
     private javax.swing.JTextField txt_quantity;
+    private javax.swing.JTextField txt_supplier;
     // End of variables declaration//GEN-END:variables
+
+    void getMedicineAccessor(MedicineDataAccessor medicineAccessor) {
+        this.medicineAccessor = medicineAccessor;
+    }
 }

@@ -3,10 +3,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package HealthCareCenter;
+package Data_Access_Layer;
 
 //import com.mysql.jdbc.Connection;
 //import com.mysql.jdbc.Statement;
+import Business_Logic_Layer.Patient;
+import Data_Access_Layer.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

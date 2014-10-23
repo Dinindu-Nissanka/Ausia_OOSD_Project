@@ -52,10 +52,10 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txt_barcodeNumber" max="32767" attributes="0"/>
-                      <Component id="txt_medicineName" alignment="0" max="32767" attributes="0"/>
                       <Component id="txt_brandName" alignment="0" max="32767" attributes="0"/>
                       <Component id="txt_quantity" alignment="0" max="32767" attributes="0"/>
                       <Component id="txt_price" alignment="0" pref="152" max="32767" attributes="0"/>
+                      <Component id="txt_medicineName" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="150" max="32767" attributes="0"/>
               </Group>
@@ -96,7 +96,7 @@
                       <Component id="chk_price" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_price" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btn_ok" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_cancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -112,7 +112,7 @@
             <Property name="text" type="java.lang.String" value="Medicine Name"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chk_medicineNameActionPerformed"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chk_medicineNameItemStateChanged"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_barcodeNumber">
@@ -138,12 +138,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_medicineName">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[150, 20]"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_medicineNameActionPerformed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_medicineName.setVisible(false);"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_brandName">
         </Component>

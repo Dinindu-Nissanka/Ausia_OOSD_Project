@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package Forms;
+package View_Layer;
 
+import Data_Access_Layer.MedicineDataAccessor;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -14,6 +15,7 @@ import java.awt.event.ItemListener;
  * @author Dinindu
  */
 public class MedicineUpdate extends javax.swing.JDialog {
+    private MedicineDataAccessor medicineAccessor;
 
     /**
      * Creates new form MedicineUpdate
@@ -21,6 +23,10 @@ public class MedicineUpdate extends javax.swing.JDialog {
     public MedicineUpdate(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txt_brandName.setVisible(false);
+        txt_medicineName.setVisible(false);
+        txt_price.setVisible(false);
+        txt_quantity.setVisible(false);
     }
 
     /**
@@ -49,9 +55,9 @@ public class MedicineUpdate extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         chk_medicineName.setText("Medicine Name");
-        chk_medicineName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chk_medicineNameActionPerformed(evt);
+        chk_medicineName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chk_medicineNameItemStateChanged(evt);
             }
         });
 
@@ -63,7 +69,7 @@ public class MedicineUpdate extends javax.swing.JDialog {
 
         chk_price.setText("Price");
 
-        txt_medicineName.setVisible(false);
+        txt_medicineName.setMinimumSize(new java.awt.Dimension(150, 20));
         txt_medicineName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_medicineNameActionPerformed(evt);
@@ -96,10 +102,10 @@ public class MedicineUpdate extends javax.swing.JDialog {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_barcodeNumber)
-                    .addComponent(txt_medicineName)
                     .addComponent(txt_brandName)
                     .addComponent(txt_quantity)
-                    .addComponent(txt_price, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                    .addComponent(txt_price, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(txt_medicineName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(150, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,7 +137,7 @@ public class MedicineUpdate extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chk_price)
                     .addComponent(txt_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ok)
                     .addComponent(btn_cancel))
@@ -156,22 +162,23 @@ public class MedicineUpdate extends javax.swing.JDialog {
         
     }//GEN-LAST:event_txt_quantityActionPerformed
 
-    private void chk_medicineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_medicineNameActionPerformed
-        chk_medicineName.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                txt_medicineName.setVisible(chk_medicineName.isSelected());
-                invalidate();
-                validate();
-            }
-        });
-    }//GEN-LAST:event_chk_medicineNameActionPerformed
-
     private void txt_medicineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_medicineNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_medicineNameActionPerformed
 
+    private void chk_medicineNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chk_medicineNameItemStateChanged
+        chk_medicineName.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    txt_medicineName.setVisible(true);
+                else
+                    txt_medicineName.setVisible(false);
+            }
+        });
+    }//GEN-LAST:event_chk_medicineNameItemStateChanged
+    
     /**
      * @param args the command line arguments
      */
@@ -229,4 +236,8 @@ public class MedicineUpdate extends javax.swing.JDialog {
     private javax.swing.JTextField txt_price;
     private javax.swing.JTextField txt_quantity;
     // End of variables declaration//GEN-END:variables
+
+    void getMedicineAccessor(MedicineDataAccessor medicineAccessor) {
+        this.medicineAccessor = medicineAccessor;
+    }
 }

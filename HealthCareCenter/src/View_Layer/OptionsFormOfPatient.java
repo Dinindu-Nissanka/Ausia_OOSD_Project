@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Forms;
+package View_Layer;
 
-import Forms.FamilyHistoryForm;
+import View_Layer.FamilyHistoryForm;
 
 /**
  *

@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package HealthCareCenter;
+package Business_Logic_Layer;
 
-import Forms.StartForm;
+import View_Layer.StartForm;
 
 /**
  *
@@ -23,7 +23,7 @@ public class HealthCareCenter {
         // TODO code application logic here
         StartForm sForm=new StartForm();
         sForm.setVisible(true);
-        sForm.setSize(400, 300);   
+        //sForm.setSize(400, 300);   
         
     }
     

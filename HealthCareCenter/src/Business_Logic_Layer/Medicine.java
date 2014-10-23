@@ -1,5 +1,5 @@
 
-package HealthCareCenter;
+package Business_Logic_Layer;
 
 /**
  *
@@ -11,13 +11,23 @@ public class Medicine {
     private long barcodeNumber;
     private double price;
     private int quantity;
+    private String supplier;
 
-    public Medicine(String medicineName, String medicineBrand, long barcodeNumber, double price, int quantity) {
+    public Medicine(String medicineName, String medicineBrand, long barcodeNumber, double price, int quantity,String supplier) {
         this.medicineName = medicineName;
         this.medicineBrand = medicineBrand;
         this.barcodeNumber = barcodeNumber;
         this.price = price;
         this.quantity = quantity;
+        this.supplier = supplier;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
     
     public String getMedicineName() {
