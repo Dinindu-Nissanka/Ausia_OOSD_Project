@@ -5,6 +5,8 @@
  */
 package HealthCareCenter;
 
+import Business_Logic_Layer.Patient;
+import Data_Access_Layer.PatientDataAccessor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

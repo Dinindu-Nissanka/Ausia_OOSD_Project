@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HealthCareCenter;
+package View_Layer;
 
+import Business_Logic_Layer.Patient;
+import Data_Access_Layer.PatientDataAccessor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
