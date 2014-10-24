@@ -14,22 +14,22 @@ public class Patient {
     
     private String name;
     private String age;
-    private String NIC;
+    private String ID;
     private String gender;
     private String familyName;
     private String contactNo;
-    private String specialRemarks;
+   // private String specialRemarks;
     
     
 
-    public Patient(String name, String age, String NIC, String familyName,String gender, String contactNo, String specialRemarks) {
+    public Patient(String name, String age, String ID, String familyName,String gender, String contactNo) {
         this.name = name;
         this.age = age;
-        this.NIC = NIC;
+        this.ID = ID;
         this.familyName = familyName;
         this.gender = gender;
         this.contactNo = contactNo;
-        this.specialRemarks = specialRemarks;
+  //      this.specialRemarks = specialRemarks;
     }
 
     public String getAge() {
@@ -48,17 +48,14 @@ public class Patient {
         return gender;
     }
 
-    public String getNIC() {
-        return NIC;
+    public String getID() {
+        return ID;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getSpecialRemarks() {
-        return specialRemarks;
-    }
 
     public void setAge(String age) {
         this.age = age;
@@ -76,17 +73,12 @@ public class Patient {
         this.gender = geder;
     }
 
-    public void setNIC(String NIC) {
-        this.NIC = NIC;
+    public void setID(String NIC) {
+        this.ID = NIC;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setSpecialRemarks(String specialRemarks) {
-        this.specialRemarks = specialRemarks;
-    }
-
     
 }

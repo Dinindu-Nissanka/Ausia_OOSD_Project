@@ -5,6 +5,10 @@
  */
 package HealthCareCenter;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author User
@@ -131,7 +135,12 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
     //diagnose button
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        PrescriptionForm prescriptionForm=new PrescriptionForm();
+        PrescriptionForm prescriptionForm = null;
+        try {
+            prescriptionForm = new PrescriptionForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(OptionsFormOfPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
         prescriptionForm.setVisible(true);
         prescriptionForm.setSize(800, 570);
     }//GEN-LAST:event_jButton5ActionPerformed

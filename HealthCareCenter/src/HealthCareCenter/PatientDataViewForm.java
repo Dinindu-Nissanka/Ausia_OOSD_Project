@@ -110,8 +110,8 @@ public class PatientDataViewForm extends javax.swing.JFrame {
       PatientDataAccessor dataAccessObject=new PatientDataAccessor();
       List<Patient> patientList=new ArrayList();
       DefaultTableModel patientDataTable=new DefaultTableModel();
-      Object[ ] columnNames=new Object[7];
-      Object[ ] fieldValues=new Object[7];
+      Object[ ] columnNames=new Object[6];
+      Object[ ] fieldValues=new Object[6];
       Patient myPatient=null;
       
       try{
@@ -124,11 +124,10 @@ public class PatientDataViewForm extends javax.swing.JFrame {
       
       columnNames[0]="Name";
       columnNames[1]="Age";
-      columnNames[2]="NIC";
+      columnNames[2]="ID";
       columnNames[3]="Gender";
       columnNames[4]="Family Name";
       columnNames[5]="Contact No.";
-      columnNames[6]="Special Remarks";
       
       patientDataTable.setColumnIdentifiers(columnNames);
       
@@ -138,11 +137,10 @@ public class PatientDataViewForm extends javax.swing.JFrame {
               myPatient = patientList1;
               fieldValues[0]=myPatient.getName().toString();
               fieldValues[1]=myPatient.getAge().toString();
-              fieldValues[2]=myPatient.getNIC().toString();
+              fieldValues[2]=myPatient.getID().toString();
               fieldValues[3]=myPatient.getGender().toString();
               fieldValues[4]=myPatient.getFamilyName().toString();
               fieldValues[5]=myPatient.getContactNo().toString();
-              fieldValues[6]=myPatient.getSpecialRemarks().toString();
               patientDataTable.addRow(fieldValues);
           }
           
