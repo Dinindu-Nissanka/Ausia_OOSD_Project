@@ -59,6 +59,7 @@ public class supplierMain extends javax.swing.JFrame {
     orderDataAccesor orderDataAccessorObject=new orderDataAccesor();
     chequeDataAccessor chequeDataAccessObject=new chequeDataAccessor();
     bankDataAccessor newBankDataAccessor=new bankDataAccessor();
+    chequeTableUpdate newChequeTable=new chequeTableUpdate();
     /**
      * Creates new form supplierMain
      */
@@ -66,6 +67,8 @@ public class supplierMain extends javax.swing.JFrame {
         initComponents();
         order newOrder=new order();
         loadSupplier();
+        newChequeTable.checkAndUpdate();
+        this.loadCheques();
         this.loadBank();
         this.searchedPanel.setVisible(false);
         this.orderTable.setVisible(false);
@@ -209,6 +212,10 @@ public class supplierMain extends javax.swing.JFrame {
         depositAmountText = new javax.swing.JTextField();
         bankDepositButton = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        chequeDetailTable = new javax.swing.JTable();
+        jLabel26 = new javax.swing.JLabel();
         supplierjLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -913,6 +920,46 @@ public class supplierMain extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Bank Details", jPanel5);
 
+        chequeDetailTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(chequeDetailTable);
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View_Layer/1414370520_application-vnd.ms-excel.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(jLabel26)
+                .addGap(33, 33, 33))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(205, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Cheque Details", jPanel7);
+
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(28, 57, 813, 470);
 
@@ -1121,6 +1168,7 @@ public class supplierMain extends javax.swing.JFrame {
     }//GEN-LAST:event_cashPaymentButtonActionPerformed
 
     private void bankTableUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankTableUpdateButtonActionPerformed
+        
         this.loadBank();
         try {
             // TODO add your handling code here:
@@ -1133,7 +1181,10 @@ public class supplierMain extends javax.swing.JFrame {
     private void bankDepositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankDepositButtonActionPerformed
         try {
             // TODO add your handling code here:
-            newBankDataAccessor.updateBankAmount(this.depositBankNameCombo.getSelectedItem().toString(),Float.parseFloat(this.depositAmountText.getText()));
+            float tempAmount=0;
+            tempAmount=newBankDataAccessor.RetrieveBankAccountBalance(this.depositBankNameCombo.getSelectedItem().toString());
+            newBankDataAccessor.updateBankAmount(this.depositBankNameCombo.getSelectedItem().toString(),tempAmount+Float.parseFloat(this.depositAmountText.getText()));
+            this.bankTableUpdateButton.doClick();
         } catch (SQLException ex) {
             Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1286,6 +1337,58 @@ public class supplierMain extends javax.swing.JFrame {
           this.bankTable.setVisible(true);
       }
     }
+    
+    public void loadCheques(){
+        
+      chequeDataAccessor dataAccessorCheque=new chequeDataAccessor();
+      
+      List<cheque> chequeList=new ArrayList();
+      DefaultTableModel orderDataTable=new DefaultTableModel();
+      
+      Object[ ] columnNames=new Object[4];
+      Object[ ] fieldValues=new Object[4];
+      //Patient myPatient=null;
+      
+      try{
+         chequeList=dataAccessorCheque.retriveChequeinfo();
+      }
+      
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }
+      
+      if(chequeList.isEmpty()){
+          JOptionPane.showMessageDialog(null,"No cheques ","Information",JOptionPane.WARNING_MESSAGE);
+      }
+      
+      
+      columnNames[0]="Cheque ID";
+      columnNames[1]="Bank Name";
+      columnNames[2]="Cheque Date";
+      columnNames[3]="Cheque Amount";
+     
+      
+      
+      orderDataTable.setColumnIdentifiers(columnNames);
+      
+      if(chequeList.size()>0){
+         
+          for (cheque newCheque : chequeList) {
+              tempCheque = newCheque;
+              fieldValues[0]=tempCheque.getChequeID();
+              fieldValues[1]=tempCheque.getBankName();
+              fieldValues[2]=tempCheque.getInputDate();
+              fieldValues[3]=tempCheque.getChequeAmount();
+              
+              orderDataTable.addRow(fieldValues);
+          }
+          
+          this.chequeDetailTable.setModel(orderDataTable);
+          
+      }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1338,6 +1441,7 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JButton cashPaymentButton;
     private javax.swing.JRadioButton cashPaymentRadioButton;
     private javax.swing.JButton checkAmountButton;
+    private javax.swing.JTable chequeDetailTable;
     private javax.swing.JPanel chequePanel;
     private javax.swing.JButton chequePayementButton;
     private javax.swing.JTextField chequePayementDateText;
@@ -1369,6 +1473,7 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1382,10 +1487,12 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel mailLabel;

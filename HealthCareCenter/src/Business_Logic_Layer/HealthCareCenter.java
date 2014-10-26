@@ -36,7 +36,7 @@ public class HealthCareCenter {
         login1.setVisible(true);
         login1.setSize(600,300);
         //sForm.setSize(400, 300);   
-        //test
+        
     }
     
 }

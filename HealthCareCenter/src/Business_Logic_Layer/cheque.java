@@ -5,6 +5,10 @@
  */
 package Business_Logic_Layer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Ruchi
@@ -14,6 +18,7 @@ public class cheque {
     private String bankName;
     private float chequeAmount;
     private String inputDate;
+    private String current;
     private int year;
     private int month;
     private int date;
@@ -22,12 +27,18 @@ public class cheque {
     private int currentDate;
     
     
+    
     public cheque(int chequeID,String bankName,String inputDate,float amoount){
         this.bankName=bankName;
         this.inputDate=inputDate;
         this.chequeAmount=amoount;
         this.chequeID=chequeID;
         this.dateSplit(inputDate);
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	//get current date time with Date()
+	Date date = new Date();
+        current= dateFormat.format(date);
     }
     
     public cheque(String bankName,String inputDate,float amoount){
@@ -35,7 +46,11 @@ public class cheque {
         this.inputDate=inputDate;
         this.chequeAmount=amoount;
         this.dateSplit(inputDate);
+        
+        
     }
+    
+    
     
     public void dateSplit(String datein){
         String temp[];
@@ -46,6 +61,7 @@ public class cheque {
     }
     
     public void currentDateSplit(String datein){
+        
         String temp[];
         temp=datein.split("/");
         currentYear=Integer.parseInt(temp[0].trim());
@@ -64,6 +80,8 @@ public class cheque {
         }
         return false;
     }
+    
+    
 
     /**
      * @return the chequeID

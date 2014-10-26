@@ -59,9 +59,9 @@ public class loginForm extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(60, 70, 110, 14);
         getContentPane().add(loginUserNameText);
-        loginUserNameText.setBounds(183, 30, 250, 20);
+        loginUserNameText.setBounds(183, 30, 250, 30);
         getContentPane().add(loginPasswordText);
-        loginPasswordText.setBounds(183, 70, 250, 20);
+        loginPasswordText.setBounds(183, 70, 250, 30);
 
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {

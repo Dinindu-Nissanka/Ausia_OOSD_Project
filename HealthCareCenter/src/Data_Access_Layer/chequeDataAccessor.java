@@ -5,6 +5,7 @@
  */
 package Data_Access_Layer;
 
+import Business_Logic_Layer.bank;
 import Business_Logic_Layer.cheque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,4 +65,60 @@ public class chequeDataAccessor {
             }
     }
     
+    public List<cheque> retriveChequeinfo() throws SQLException{
+        
+        List<cheque> chequeInfo=new ArrayList();
+        try{
+            databaseConnector=myConnector.getConnection();
+            stmnt=(Statement) databaseConnector.createStatement();
+            
+            SQLQuery="SELECT * FROM familydoctor.cheque";
+            dataSet=stmnt.executeQuery(SQLQuery);
+          
+            while(dataSet.next()){
+                chequeID=dataSet.getInt("chequeID");
+                bankName=dataSet.getString("bankName");
+                inputDate=dataSet.getString("chequeDate");
+                chequeAmount=dataSet.getFloat("chequeAmount");
+                
+                tempCheque=new cheque(chequeID,bankName, inputDate, chequeAmount);
+                
+                chequeInfo.add(tempCheque);
+            }
+        }
+        
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            if(stmnt!=null)
+                stmnt.close();
+            if(databaseConnector!=null)
+                databaseConnector.close();
+        }
+        
+        return chequeInfo;
+        }
+    
+    public void deleteCheque(int chequeID) throws SQLException{
+        try{
+            databaseConnector=myConnector.getConnection();
+            stmnt=(Statement) databaseConnector.createStatement();
+            SQLQuery="DELETE FROM familydoctor.cheque WHERE chequeID="+"'"+chequeID+"'";
+            stmnt.executeUpdate(SQLQuery);
+        }
+        
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            if(stmnt!=null)
+                stmnt.close();
+            if(databaseConnector!=null)
+                databaseConnector.close();
+        }
+        
+    }
 }
