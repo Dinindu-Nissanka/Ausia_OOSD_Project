@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +41,7 @@ public class PatientDataAccessor {
     String contactNo;
     String specialRemarks;
     
-    public List<Patient> retrievePatientData() throws SQLException{
+    public ResultSet retrievePatientData() throws SQLException{
         
         try{
             databaseConnector=myConnector.getConnection();
@@ -47,41 +49,20 @@ public class PatientDataAccessor {
             
             SQLQuery="SELECT * FROM familydoctor.patient";
             dataSet=stmnt.executeQuery(SQLQuery);
-          
-            while(dataSet.next()){
-              
-                name=dataSet.getString("Name");
-                age=dataSet.getString("Age");
-                ID=dataSet.getString("ID");
-                gender=dataSet.getString("Gender");
-                familyName=dataSet.getString("Family Name");
-                contactNo=dataSet.getString("Contact No.");
-                
-                myPatient=new Patient(name,age,ID,familyName,gender,contactNo);
-                patientList.add(myPatient);
-            }
         }
         
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        
-        finally{
-            if(stmnt!=null)
-                stmnt.close();
-            if(databaseConnector!=null)
-                databaseConnector.close();
-        }
-        
-        return patientList;
+        return dataSet;
     }
     
     public void insertPatientData(Patient myPatient) throws SQLException{  
-        
+      
                 try {
             databaseConnector = myConnector.getConnection();
                  
-            SQLQuery = "INSERT INTO familydoctor.patient "+"VALUES(?,?,?,?,?,?,?,?,?,?)";
+            SQLQuery = "INSERT INTO familydoctor.patient "+"VALUES(?,?,?,?,?,?,?,?,?,?) ";
             PreparedStatement preparedStatement = databaseConnector.prepareStatement(SQLQuery);
             
             preparedStatement.setString(1, myPatient.getName());
@@ -159,16 +140,38 @@ public class PatientDataAccessor {
         return dataSet; //return the raws as a resultSet
     }
     
-     public ResultSet  retrieveDiagnoseStatistics(int ID) throws SQLException{
+     public ResultSet  retrievePatientStatistics(String name) throws SQLException{
         
             databaseConnector=myConnector.getConnection();
             stmnt=(Statement) databaseConnector.createStatement();
             
-            SQLQuery="SELECT * FROM familydoctor.patient where ID="+ID;
+            SQLQuery="SELECT  * FROM familydoctor.patient WHERE Name= '"+name+"'" ;
             dataSet=stmnt.executeQuery(SQLQuery);
             
             return dataSet;
      }
+     
+     public void  updatePatientStatistics(String name,String history,String prescription,double sugarLevel,double pressureLevel) {
+        
+        try {
+             databaseConnector=myConnector.getConnection();
+        stmnt=(Statement) databaseConnector.createStatement();
+        
+        SQLQuery="UPDATE `familydoctor`.`patient` SET `History`="+history+" , `Prescription`="+prescription+" , `Blood Sugar`="+sugarLevel+" , `Blood Pressure`="+pressureLevel+" WHERE `Name`= "+name;
+        stmnt.executeUpdate(SQLQuery);
+            
+            System.out.println(history);
+            System.out.println(prescription);
+            System.out.println(sugarLevel);
+            System.out.println(pressureLevel);
+            System.out.println(name);
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDataAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 }
      
      
 }

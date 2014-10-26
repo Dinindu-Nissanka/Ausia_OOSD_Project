@@ -30,17 +30,36 @@ public class PatientLogic {
         dataAccessor.insertPatientData(myPatient);
     }
     
+    public List<Patient> getPatientDetails() throws SQLException{
+        
+        dataSet=dataAccessor.retrievePatientData();
+        patientList=new ArrayList();
+         while(dataSet.next()){
+              
+            String name = dataSet.getString("Name");
+            String age = dataSet.getString("Age");
+            String ID=dataSet.getString("ID");
+            String gender = dataSet.getString("Gender");
+            String familyName = dataSet.getString("Family Name");
+            String contactNo = dataSet.getString("Contact No.");
+                
+                myPatient=new Patient(name,age,ID,familyName,gender,contactNo);
+                patientList.add(myPatient);
+            } 
+         
+         return patientList;
+    }
+    
     public String[] getNames() throws SQLException{
         
           
-         patientList=dataAccessor.retrievePatientData();
+         dataSet=dataAccessor.retrievePatientData();
       
-         String[] nameArray=new String[patientList.size()];
+         String[] nameArray=new String[100];
           int i=0;
-         for (Patient patientList1 : patientList) {
-              myPatient = patientList1;
-              nameArray[i]=myPatient.getName();
-              i++;
+          while(dataSet.next()){
+               nameArray[i]=dataSet.getString("Name");
+               i++;
     }
     
     return nameArray;
@@ -48,14 +67,13 @@ public class PatientLogic {
     public String[] getIDs() throws SQLException{
         
           
-         patientList=dataAccessor.retrievePatientData();
+         dataSet=dataAccessor.retrievePatientData();
       
-         String[] IDArray=new String[patientList.size()];
+         String[] IDArray=new String[100];
           int i=0;
-         for (Patient patientList1 : patientList) {
-              myPatient = patientList1;
-              IDArray[i]=myPatient.getID();
-              i++;
+         while(dataSet.next()){
+               IDArray[i]=dataSet.getString("ID");
+               i++;
     }
     
     return IDArray;
@@ -64,22 +82,21 @@ public class PatientLogic {
     public String[] getFamilyNames() throws SQLException{
         
           
-         patientList=dataAccessor.retrievePatientData();
+         dataSet=dataAccessor.retrievePatientData();
       
-         String[] familyNameArray=new String[patientList.size()];
+         String[] familyNameArray=new String[100];
           int i=0;
-         for (Patient patientList1 : patientList) {
-              myPatient = patientList1;
-              familyNameArray[i]=myPatient.getFamilyName();
-              i++;
+         while(dataSet.next()){
+               familyNameArray[i]=dataSet.getString("Family Name");
+               i++;
     }
     
     return familyNameArray;
 }
     
-    public String getHistory(int ID) throws SQLException {
+    public String getHistory(String name) throws SQLException {
          String history=null;
-           dataSet=dataAccessor.retrieveDiagnoseStatistics(ID);
+           dataSet=dataAccessor.retrievePatientStatistics(name);
         
             if(dataSet==null)
                 return "not yet diagnosed";
@@ -90,9 +107,9 @@ public class PatientLogic {
              return history;
     }
     
-    public String getPrescription(int ID) throws SQLException{
+    public String getPrescription(String name) throws SQLException{
         String prescription = null;
-        dataSet=dataAccessor.retrieveDiagnoseStatistics(ID);  
+        dataSet=dataAccessor.retrievePatientStatistics(name);  
              if(dataSet==null)
                 return "not yet diagnosed";
              else{
@@ -102,9 +119,9 @@ public class PatientLogic {
              return prescription;
     }
 
-    public String getBloodSugarLevel(int ID) throws SQLException{
+    public String getBloodSugarLevel(String name) throws SQLException{
             String sugarLevel = null;
-         dataSet=dataAccessor.retrieveDiagnoseStatistics(ID);  
+         dataSet=dataAccessor.retrievePatientStatistics(name);  
              if(dataSet==null)
                 return "not yet diagnosed";
             else{
@@ -114,9 +131,9 @@ public class PatientLogic {
              return sugarLevel;
     }
     
-    public String getBloodPressureLevel(int ID) throws SQLException{
+    public String getBloodPressureLevel(String name) throws SQLException{
             String pressureLevel = null;
-          dataSet=dataAccessor.retrieveDiagnoseStatistics(ID);  
+          dataSet=dataAccessor.retrievePatientStatistics(name);  
              if(dataSet==null)
                 return "not yet diagnosed";
              else{
@@ -125,7 +142,18 @@ public class PatientLogic {
              }
              return pressureLevel;
     }
-    
+    public void updatePatientDetails(String name,String history,String medicineArray[],String quantityArray[],double sugarLevel,double pressureLevel) throws SQLException{
+      //       
+        String prescription ="";
+        for(int i=0;i<10;i++){
+            if(medicineArray[i]!=null && quantityArray[i]!=null )
+            prescription=prescription+medicineArray[i]+" ~ "+quantityArray[i]+"\n";
+            else break;
+        }
+        System.out.println(prescription);
+        
+        dataAccessor.updatePatientStatistics(name, history, prescription, sugarLevel, pressureLevel);
+    }
     
 }
     

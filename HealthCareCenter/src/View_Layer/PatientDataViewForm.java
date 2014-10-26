@@ -7,6 +7,7 @@ package View_Layer;
 
 import Business_Logic_Layer.Patient;
 import Data_Access_Layer.PatientDataAccessor;
+import HealthCareCenter.PatientLogic;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,23 +44,38 @@ public class PatientDataViewForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Age", "NIC", "Gender", "Family Name", "Contact No.", "Special Remarks"
+                "Name", "Age", "NIC", "Gender", "Family Name", "Contact No."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -91,9 +107,9 @@ public class PatientDataViewForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(jButton1)
                 .addGap(21, 21, 21))
         );
@@ -109,7 +125,7 @@ public class PatientDataViewForm extends javax.swing.JFrame {
 
     public void loadPatientData(){
         
-      PatientDataAccessor dataAccessObject=new PatientDataAccessor();
+        PatientLogic myLogicLayer=new PatientLogic();
       List<Patient> patientList=new ArrayList();
       DefaultTableModel patientDataTable=new DefaultTableModel();
       Object[ ] columnNames=new Object[6];
@@ -117,7 +133,7 @@ public class PatientDataViewForm extends javax.swing.JFrame {
       Patient myPatient=null;
       
       try{
-         patientList=dataAccessObject.retrievePatientData();
+         patientList=myLogicLayer.getPatientDetails();
       }
       
       catch(SQLException e){

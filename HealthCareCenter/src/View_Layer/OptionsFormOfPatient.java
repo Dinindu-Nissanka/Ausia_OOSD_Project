@@ -5,11 +5,11 @@
  */
 package View_Layer;
 
-import View_Layer.FamilyHistoryForm;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -115,6 +115,7 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
         FamilyHistoryForm historyForm=new FamilyHistoryForm();
         historyForm.setVisible(true);
         historyForm.setSize(850, 500);
+        historyForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_jButton4ActionPerformed
 
     //data view button
@@ -123,6 +124,7 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
         PatientDataViewForm patientView=new PatientDataViewForm();
         patientView.setVisible(true);
         patientView.setSize(1000, 430 );
+        patientView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //insert button
@@ -131,19 +133,21 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
         PatientDataInsertForm patientInsert=new PatientDataInsertForm();
         patientInsert.setVisible(true);
         patientInsert.setSize(670,620);
+        patientInsert.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //diagnose button
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        PrescriptionForm prescriptionForm = null;
+        PatientDiagnoseForm prescriptionForm = null;
         try {
-            prescriptionForm = new PrescriptionForm();
+            prescriptionForm = new PatientDiagnoseForm();
+            prescriptionForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
         } catch (SQLException ex) {
             Logger.getLogger(OptionsFormOfPatient.class.getName()).log(Level.SEVERE, null, ex);
         }
         prescriptionForm.setVisible(true);
-        prescriptionForm.setSize(800, 570);
+        prescriptionForm.setSize(850, 700);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //patients history
@@ -152,6 +156,7 @@ public class OptionsFormOfPatient extends javax.swing.JFrame {
         PatientHistoryForm historyForm=new PatientHistoryForm();
         historyForm.setVisible(true);
         historyForm.setSize(700, 450);
+        historyForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
