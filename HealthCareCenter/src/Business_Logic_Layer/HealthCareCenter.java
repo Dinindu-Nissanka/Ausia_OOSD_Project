@@ -8,6 +8,7 @@ package Business_Logic_Layer;
 
 import View_Layer.StartForm;
 import View_Layer.login;
+import View_Layer.loginForm;
 import java.sql.SQLException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -31,9 +32,9 @@ public class HealthCareCenter {
         //l.connect();
         //l.getPassword();
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        login login1 = new login();
+        loginForm login1 = new loginForm();
         login1.setVisible(true);
-        
+        login1.setSize(600,300);
         //sForm.setSize(400, 300);   
         
     }
