@@ -6,8 +6,11 @@
 package View_Layer;
 
 import Data_Access_Layer.MedicineDataAccessor;
+import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -129,7 +132,12 @@ public class StartForm extends javax.swing.JFrame implements Observer {
        patientOptions.setVisible(true);
        patientOptions.setSize(450, 360);
        patientOptions.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); */
-        PatientOptionForm pOptionForm=new PatientOptionForm();
+        PatientOptionForm pOptionForm = null;
+        try {
+            pOptionForm = new PatientOptionForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(StartForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pOptionForm.setVisible(true);
        pOptionForm.setSize(650, 760);
     }//GEN-LAST:event_jButton1ActionPerformed
