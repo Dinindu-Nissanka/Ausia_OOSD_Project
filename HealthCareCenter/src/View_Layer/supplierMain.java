@@ -9,6 +9,7 @@ import Business_Logic_Layer.*;
 import Data_Access_Layer.supplierDataAccessor;
 import Data_Access_Layer.orderDataAccesor;
 import Data_Access_Layer.chequeDataAccessor;
+import Data_Access_Layer.bankDataAccessor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class supplierMain extends javax.swing.JFrame {
     supplier tempSupplier=null;
     order tempOrder=null;
     cheque tempCheque=null;
+    bank tempBank;
     orderInfo newOrderInfoForm;
     private String name=null;
     private String contactDetails=null;
@@ -50,11 +52,13 @@ public class supplierMain extends javax.swing.JFrame {
     private float chequeAmount;
     private String inputDate;
         
+    List<String> bankList=new ArrayList();
     List<String> supplierList=new ArrayList();
     List<Float> medicinePrice=new ArrayList();
     supplierDataAccessor dataAccessor=new supplierDataAccessor();
     orderDataAccesor orderDataAccessorObject=new orderDataAccesor();
     chequeDataAccessor chequeDataAccessObject=new chequeDataAccessor();
+    bankDataAccessor newBankDataAccessor=new bankDataAccessor();
     /**
      * Creates new form supplierMain
      */
@@ -62,17 +66,21 @@ public class supplierMain extends javax.swing.JFrame {
         initComponents();
         order newOrder=new order();
         loadSupplier();
+        this.loadBank();
         this.searchedPanel.setVisible(false);
         this.orderTable.setVisible(false);
         currentDate=newOrder.getCurrentDate();
         orderDateText.setText(newOrder.getCurrentDate());
         dateLabel.setText(newOrder.getCurrentDate());
         chequePayementDateText.setText(dateLabel.getText());
+        
+        
         try {
             // TODO add your handling code here:
             supplierList = dataAccessor.databaseInfo("Name");
             for(int i=0;i<supplierList.size();i++){
                 orderNameCombo.addItem(supplierList.get(i));
+                supplierDetailsOrderCombo.addItem(supplierList.get(i));
             }
         } catch (SQLException ex) {
             Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,6 +96,20 @@ public class supplierMain extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            // TODO add your handling code here:
+            bankList=newBankDataAccessor.databaseInfo("bankName");
+            
+            for(int i=0;i<bankList.size();i++){
+                bankSearchCombo.addItem(bankList.get(i));
+                depositBankNameCombo.addItem(bankList.get(i));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //supplierTabbedPane.setOpaque(false);
     }
 
     /**
@@ -100,6 +122,7 @@ public class supplierMain extends javax.swing.JFrame {
     private void initComponents() {
 
         paymentTypeCheck = new javax.swing.ButtonGroup();
+        jButton3 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
@@ -151,12 +174,12 @@ public class supplierMain extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        supNameOrderDetailsText = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         orderTable = new javax.swing.JTable();
         orderSearchButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         orderIDdetailsText = new javax.swing.JTextField();
+        supplierDetailsOrderCombo = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         paymenOrderIDText = new javax.swing.JTextField();
@@ -169,16 +192,35 @@ public class supplierMain extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        chequePayementBankText = new javax.swing.JTextField();
         chequePayementDateText = new javax.swing.JTextField();
         chequePaymentAmountText = new javax.swing.JTextField();
         chequePayementButton = new javax.swing.JButton();
+        bankSearchCombo = new javax.swing.JComboBox();
         cashPaymentButton = new javax.swing.JButton();
         moneyIconLabel = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        bankTableUpdateButton = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        bankTable = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        depositBankNameCombo = new javax.swing.JComboBox();
+        depositAmountText = new javax.swing.JTextField();
+        bankDepositButton = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
         supplierjLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+
+        jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jTabbedPane1.setOpaque(true);
+
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         nameLabel.setText("Name");
 
@@ -487,7 +529,7 @@ public class supplierMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(addOrderButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Order Create", jPanel2);
@@ -537,12 +579,6 @@ public class supplierMain extends javax.swing.JFrame {
 
         jLabel14.setText("Supplier Name");
 
-        supNameOrderDetailsText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supNameOrderDetailsTextActionPerformed(evt);
-            }
-        });
-
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -585,9 +621,9 @@ public class supplierMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel14)
-                        .addGap(32, 32, 32)
-                        .addComponent(supNameOrderDetailsText, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addGap(18, 18, 18)
+                        .addComponent(supplierDetailsOrderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(orderSearchButton)))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
@@ -597,8 +633,8 @@ public class supplierMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(supNameOrderDetailsText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(orderSearchButton))
+                    .addComponent(orderSearchButton)
+                    .addComponent(supplierDetailsOrderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
@@ -661,25 +697,20 @@ public class supplierMain extends javax.swing.JFrame {
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(chequePanelLayout.createSequentialGroup()
                         .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(58, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chequePanelLayout.createSequentialGroup()
-                        .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, chequePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chequePayementBankText, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, chequePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chequePaymentAmountText)
-                                    .addComponent(chequePayementDateText)))
-                            .addGroup(chequePanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(chequePayementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39))))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chequePayementButton, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(chequePaymentAmountText)
+                            .addComponent(chequePayementDateText)
+                            .addComponent(bankSearchCombo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(39, 39, 39))
+                    .addGroup(chequePanelLayout.createSequentialGroup()
+                        .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         chequePanelLayout.setVerticalGroup(
             chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -689,7 +720,7 @@ public class supplierMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(chequePayementBankText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bankSearchCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
@@ -698,9 +729,9 @@ public class supplierMain extends javax.swing.JFrame {
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(chequePaymentAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(chequePayementButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         cashPaymentButton.setText("Cash Payment");
@@ -742,8 +773,8 @@ public class supplierMain extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(chequePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(cashPaymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(160, 160, 160)
+                        .addComponent(cashPaymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -767,7 +798,7 @@ public class supplierMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(chequePayementRadioButton)
                 .addGap(18, 18, 18)
-                .addComponent(chequePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chequePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cashPaymentButton)
                 .addContainerGap(79, Short.MAX_VALUE))
@@ -775,37 +806,128 @@ public class supplierMain extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Received Order", jPanel4);
 
-        supplierjLabel.setText("Supplier Management");
+        jPanel5.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(361, 361, 361)
-                .addComponent(supplierjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+        bankTableUpdateButton.setText("Update");
+        bankTableUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bankTableUpdateButtonActionPerformed(evt);
+            }
+        });
+
+        bankTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(bankTable);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel22.setText("Bank Name");
+
+        jLabel23.setText("Amount");
+
+        bankDepositButton.setText("Deposit");
+        bankDepositButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bankDepositButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bankDepositButton)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(depositBankNameCombo, 0, 128, Short.MAX_VALUE)
+                            .addComponent(depositAmountText))))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(supplierjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dateLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(depositBankNameCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(depositAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bankDepositButton)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View_Layer/bank.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(bankTableUpdateButton))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel25)))
+                .addGap(28, 28, 28))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bankTableUpdateButton)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
+        );
+
+        jTabbedPane1.addTab("Bank Details", jPanel5);
+
+        getContentPane().add(jTabbedPane1);
+        jTabbedPane1.setBounds(28, 57, 813, 470);
+
+        supplierjLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        supplierjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        supplierjLabel.setText("Supplier Management");
+        getContentPane().add(supplierjLabel);
+        supplierjLabel.setBounds(361, 16, 203, 35);
+        getContentPane().add(dateLabel);
+        dateLabel.setBounds(778, 11, 118, 0);
+
+        jLabel24.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View_Layer/blurry_blue_background.jpg"))); // NOI18N
+        getContentPane().add(jLabel24);
+        jLabel24.setBounds(0, 0, 1020, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -921,15 +1043,10 @@ public class supplierMain extends javax.swing.JFrame {
         this.loadOrder();
     }//GEN-LAST:event_orderSearchButtonActionPerformed
 
-    private void supNameOrderDetailsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supNameOrderDetailsTextActionPerformed
-        // TODO add your handling code here:
-        this.loadOrder();
-    }//GEN-LAST:event_supNameOrderDetailsTextActionPerformed
-
     private void orderIDdetailsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderIDdetailsTextActionPerformed
         try {
             // TODO add your handling code here:
-            String temp=(orderDataAccessorObject.retrieveOrderInfo(supNameOrderDetailsText.getText(),Integer.parseInt(orderIDdetailsText.getText())));
+            String temp=(orderDataAccessorObject.retrieveOrderInfo(supplierDetailsOrderCombo.getSelectedItem().toString(),Integer.parseInt(orderIDdetailsText.getText())));
             newOrderInfoForm=new orderInfo(temp);
             newOrderInfoForm.setVisible(true);
             
@@ -953,9 +1070,15 @@ public class supplierMain extends javax.swing.JFrame {
 
     private void chequePayementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chequePayementButtonActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            orderDataAccessorObject.deleteOrderInfo(Integer.parseInt(paymenOrderIDText.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try{
-            this.bankName=chequePayementBankText.getText();
+            this.bankName=bankSearchCombo.getSelectedItem().toString();
             this.inputDate=chequePayementDateText.getText();
             this.chequeAmount=Float.parseFloat(chequePaymentAmountText.getText());
         
@@ -996,6 +1119,25 @@ public class supplierMain extends javax.swing.JFrame {
             Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cashPaymentButtonActionPerformed
+
+    private void bankTableUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankTableUpdateButtonActionPerformed
+        this.loadBank();
+        try {
+            // TODO add your handling code here:
+            newBankDataAccessor.RetrieveBankAccountBalance("Bank of Ceylon");
+        } catch (SQLException ex) {
+            Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bankTableUpdateButtonActionPerformed
+
+    private void bankDepositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bankDepositButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            newBankDataAccessor.updateBankAmount(this.depositBankNameCombo.getSelectedItem().toString(),Float.parseFloat(this.depositAmountText.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(supplierMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bankDepositButtonActionPerformed
     
     
     
@@ -1056,12 +1198,17 @@ public class supplierMain extends javax.swing.JFrame {
       //Patient myPatient=null;
       
       try{
-         orderList=dataAccessOrder.retrieveOrderData(supNameOrderDetailsText.getText());
+         orderList=dataAccessOrder.retrieveOrderData(supplierDetailsOrderCombo.getSelectedItem().toString());
       }
       
       catch(SQLException e){
           System.out.println(e.getMessage());
       }
+      
+      if(orderList.isEmpty()){
+          JOptionPane.showMessageDialog(null,"No orders from the selected supplier ","Information",JOptionPane.WARNING_MESSAGE);
+      }
+      
       
       columnNames[0]="OrderID";
       columnNames[1]="Supplier Name";
@@ -1090,6 +1237,55 @@ public class supplierMain extends javax.swing.JFrame {
       }
     }
      
+    public void loadBank(){
+        
+      orderDataAccesor dataAccessOrder=new orderDataAccesor();
+      
+      List<bank> bankList=new ArrayList();
+      DefaultTableModel orderDataTable=new DefaultTableModel();
+      
+      Object[ ] columnNames=new Object[4];
+      Object[ ] fieldValues=new Object[4];
+      //Patient myPatient=null;
+      
+      try{
+         bankList=newBankDataAccessor.retriveBankinfo();
+      }
+      
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }
+      
+      if(bankList.isEmpty()){
+          JOptionPane.showMessageDialog(null,"No orders from the selected supplier ","Information",JOptionPane.WARNING_MESSAGE);
+      }
+      
+      
+      columnNames[0]="Bank ID";
+      columnNames[1]="Bank Name";
+      columnNames[2]="Acount No";
+      columnNames[3]="Account Balance";
+     
+      
+      
+      orderDataTable.setColumnIdentifiers(columnNames);
+      
+      if(bankList.size()>0){
+         
+          for (bank newBank : bankList) {
+              tempBank = newBank;
+              fieldValues[0]=tempBank.getBankID();
+              fieldValues[1]=tempBank.getBankName();
+              fieldValues[2]=tempBank.getAccNo();
+              fieldValues[3]=tempBank.getAccBalance();
+              
+              orderDataTable.addRow(fieldValues);
+          }
+          
+          this.bankTable.setModel(orderDataTable);
+          this.bankTable.setVisible(true);
+      }
+    }
     /**
      * @param args the command line arguments
      */
@@ -1135,11 +1331,14 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JButton addItemButton;
     private javax.swing.JButton addOrderButton;
+    private javax.swing.JButton bankDepositButton;
+    private javax.swing.JComboBox bankSearchCombo;
+    private javax.swing.JTable bankTable;
+    private javax.swing.JButton bankTableUpdateButton;
     private javax.swing.JButton cashPaymentButton;
     private javax.swing.JRadioButton cashPaymentRadioButton;
     private javax.swing.JButton checkAmountButton;
     private javax.swing.JPanel chequePanel;
-    private javax.swing.JTextField chequePayementBankText;
     private javax.swing.JButton chequePayementButton;
     private javax.swing.JTextField chequePayementDateText;
     private javax.swing.JRadioButton chequePayementRadioButton;
@@ -1147,8 +1346,11 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JLabel contactLabel;
     private javax.swing.JTextField contactText;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JTextField depositAmountText;
+    private javax.swing.JComboBox depositBankNameCombo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1163,6 +1365,10 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1174,9 +1380,12 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel mailLabel;
@@ -1207,7 +1416,7 @@ public class supplierMain extends javax.swing.JFrame {
     private javax.swing.JTextField searchedMailText;
     private javax.swing.JPanel searchedPanel;
     private javax.swing.JTextField searchednameText;
-    private javax.swing.JTextField supNameOrderDetailsText;
+    private javax.swing.JComboBox supplierDetailsOrderCombo;
     private javax.swing.JLabel supplierjLabel;
     // End of variables declaration//GEN-END:variables
 }

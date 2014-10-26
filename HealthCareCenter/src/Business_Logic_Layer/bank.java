@@ -15,6 +15,7 @@ public class bank {
     private int accNo;
     private float accBalance;
     
+    
     public bank(int ID,String bankName,int accNo,float accBlance){
         this.bankID=ID;
         this.bankName=bankName;

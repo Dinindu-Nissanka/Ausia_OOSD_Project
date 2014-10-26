@@ -35,6 +35,7 @@ public class supplierDataAccessor {
     String mail;
     float amount;
     
+    
     public List<supplier> retrieveSupplierData() throws SQLException{
         
         try{

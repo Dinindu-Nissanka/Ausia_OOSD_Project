@@ -32,7 +32,7 @@ public class orderInfo extends javax.swing.JFrame {
         infoTextPane = new javax.swing.JTextPane();
         closeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setViewportView(infoTextPane);
 

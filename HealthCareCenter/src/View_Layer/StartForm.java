@@ -145,6 +145,7 @@ public class StartForm extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         supplierMain supplierFrame=new supplierMain();
         supplierFrame.setVisible(true);
+        supplierFrame.setSize(1000,600);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
