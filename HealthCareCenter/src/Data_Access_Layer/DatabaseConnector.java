@@ -10,14 +10,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author User
- */
 public class DatabaseConnector {
     
     
-   private Connection connector=null;
+   private Connection connector = null;
     
     public Connection getConnection(){
         
@@ -42,8 +38,7 @@ public class DatabaseConnector {
         }
         
    return connector;  //returning the connection
-            
-        
+                    
     } 
     
 }

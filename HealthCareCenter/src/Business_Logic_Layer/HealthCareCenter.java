@@ -7,6 +7,10 @@
 package Business_Logic_Layer;
 
 import View_Layer.StartForm;
+import View_Layer.login;
+import java.sql.SQLException;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -19,10 +23,17 @@ public class HealthCareCenter {
      */
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         // TODO code application logic here
-        StartForm sForm=new StartForm();
-        sForm.setVisible(true);
+        //StartForm sForm=new StartForm();
+        //sForm.setVisible(true);
+        //loginPage l=new loginPage();
+        //l.connect();
+        //l.getPassword();
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        login login1 = new login();
+        login1.setVisible(true);
+        
         //sForm.setSize(400, 300);   
         
     }
