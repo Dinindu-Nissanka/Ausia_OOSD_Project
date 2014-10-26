@@ -150,6 +150,8 @@ public class PatientDataViewForm extends javax.swing.JFrame {
       }
       
     }
+    
+   
       
     /**
      * @param args the command line arguments
